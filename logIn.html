@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+
+        <title> TP </title>
+
+        <var id="pageName">login</var>
+
+        <link rel="stylesheet" href="style.css">
+        <script defer src="script.js"></script>
+
+    </head>
+    
+    <body>
+
+        <div id="menuBar">
+            <a id="loggedUsername" style="font-family: Arial, Helvetica, sans-serif;color: blueviolet; margin-right: 30vw;" ></a>
+            <button class="barButton" id="homeButton" onclick="location.href='index.html'"> Home </button>
+            <button class="barButton" onclick="location.href='logIn.html'"> Log In </button>
+            <button class="barButton" onclick="location.href='signUp.html'"> Sign Up </button>
+        </div>
+
+        <div>
+
+            <a id="pageSubTitle">
+                Logging In
+            </a>
+    
+            <div id="formDiv">
+                <form id="createAccountForm" onsubmit="logInAccount(); return false;">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>        
+                    
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                    
+                    <input type="submit" value="Log Into Account">
+                </form>
+            </div>
+            
+        </div>
+
+
+    </body>
+
+</html>
