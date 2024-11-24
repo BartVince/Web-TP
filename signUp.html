@@ -15,10 +15,12 @@
     <body>
 
         <div id="menuBar">
-            <a id="loggedUsername" style="font-family: Arial, Helvetica, sans-serif;color: blueviolet; margin-right: 30vw;" ></a>
-            <button class="barButton" id="homeButton" onclick="location.href='index.html'"> Home </button>
-            <button class="barButton" onclick="location.href='logIn.html'"> Log In </button>
-            <button class="barButton" onclick="location.href='signUp.html'"> Sign Up </button>
+            <button id="loggedUsername" class="barButton" style="color: blueviolet;" onclick="logOutAccount()"></button>
+            <button id="userCurrency" class="barButton" style="color: blueviolet; cursor: default;"></button>
+            <button id="gameButton" class="barButton" onclick="location.href='game.html'"> Mine </button>
+            <button id="homeButton" class="barButton" onclick="location.href='index.html'"> Home </button>
+            <button id="logInButton" class="barButton" onclick="location.href='logIn.html'"> Log In </button>
+            <button id="signUpButton" class="barButton" onclick="location.href='signUp.html'"> Sign Up </button>
         </div>
 
         <div>
@@ -30,7 +32,7 @@
             <div id="formDiv">
                 <form id="createAccountForm" onsubmit="createAccount(); return false;">
                     <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" required>        
+                    <input type="text" id="username" name="username" required maxlength="20">        
                     <label id="usernameError" style="color: red; display: none; transform: translateY(-2vh);">Username taken!</label>
                     
                     <label for="password">Password:</label>
@@ -38,6 +40,12 @@
                     
                     <input type="submit" value="Create Account">
                 </form>
+
+                <div id="CreatedAccountPrompt", style="display: none;">
+                    <a>Account successfully created!</a>
+                    <button id="goToLoginButton" onclick="location.href='logIn.html'"> Go to login page </button>
+                </div>
+
             </div>
             
         </div>

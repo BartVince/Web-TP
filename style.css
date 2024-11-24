@@ -27,11 +27,19 @@
 }
 
 .barButton:hover {
-    color:#0072ff
+    color:#0072ff;
+}
+
+#loggedUsername:hover {
+    font-weight: bold;
 }
 
 #homeButton {
-    transform: translateX(-200px);
+    transform: translateX(-600px);
+}
+
+#gameButton {
+    transform: translateX(-600px);
 }
 
 #pageSubTitle {
@@ -60,4 +68,91 @@ input {
     margin-bottom: 3vh;
     
     display: block;
+}
+
+#goToLoginButton {
+    margin-top: 5vh;
+    background-color: #00000000;
+    border-color: #00000000;
+    cursor: pointer;
+}
+
+#goToLoginButton:hover {
+    color: #0072ff;
+}
+
+#storeDiv {
+    background-color: #D3D5FE;
+    height: 75vw;
+    width: 60vw;
+    margin: auto;
+    margin-top: 25vh;
+    font-family: Arial, Helvetica, sans-serif;
+
+    display: flex; 
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.article {
+    background-color: #4b4b4b;
+    height: 24vw;
+    width: 19vw;
+    margin: 0.25vw;
+    text-align: center;
+
+    display: grid;
+}
+
+.articleImg {
+    height: 19vw;
+    width: 19vw;
+    background-color: #373737;
+}
+
+.articleTitle {
+    color: rgb(200, 230, 255);
+    font-size: 1.25vw;
+    font-weight: bold;
+    transform: translateY(1vw);
+}
+
+.articleText {
+    color: rgb(255, 235, 125);
+    font-size: 1.25vw;
+    transform: translateY(1.5vw);
+}
+
+.articleBuyButton {
+    background-color: #72ff91;
+    border-color: #00000000;
+    cursor: pointer;
+    transform: translate(14.25vw, -21.25vw);
+    width: 4vw;
+    height: 2.5vw;
+    font-size: 1vw;
+}
+
+.articleBuyButton:hover {
+    background-color: #00f034;
+}
+
+.purchased {
+    transform: translateY(-24.35vw);
+    height: 23.75vw;
+    width: 100%;
+    background-color: #00000078;
+    color: red;
+    font-weight: bold;
+    font-size: 1.5vw;
+
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.normalPurchased {
+    color: white;
+    transform: translate(-6vw, -1.5vw);
+    font-size: 0.75vw;
 }

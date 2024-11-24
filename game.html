@@ -5,7 +5,7 @@
 
         <title> TP </title>
 
-        <var id="pageName">login</var>
+        <var id="pageName">game</var>
 
         <link rel="stylesheet" href="style.css">
         <script defer src="script.js"></script>
@@ -23,26 +23,7 @@
             <button id="signUpButton" class="barButton" onclick="location.href='signUp.html'"> Sign Up </button>
         </div>
 
-        <div>
-
-            <a id="pageSubTitle">
-                Logging In
-            </a>
-    
-            <div id="formDiv">
-                <form id="logInAccountForm" onsubmit="logInAccount(); return false;">
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" required>        
-                    
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" required>
-                    
-                    <input type="submit" value="Log Into Account">
-                </form>
-            </div>
-            
-        </div>
-
+        <button style="margin: auto; margin-top: 25vh; display: flex;" onclick="mineClicked()">clicker</button>
 
     </body>
 
