@@ -82,7 +82,7 @@ input {
 }
 
 #storeDiv {
-    background-color: #D3D5FE;
+    background-color: #1f1f2a;
     height: 75vw;
     width: 60vw;
     margin: auto;
@@ -155,4 +155,37 @@ input {
     color: white;
     transform: translate(-6vw, -1.5vw);
     font-size: 0.75vw;
+}
+
+#gameDiv {
+    background-color: #12191a;
+    height: 40vw;
+    width: 70vw;
+    margin: auto;
+    margin-top: 25vh;
+    font-family: Arial, Helvetica, sans-serif;
+
+    display: flex; 
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+#backgroundGif {
+    height: 100%;
+    width: 100%;
+}
+
+#pickaxeImg {
+    height: 13.5vw;
+    width: 18vw;
+}
+
+#depositImg {
+    height: 20vw;
+    width: 20vw;
+}
+
+#clickerButton {
+    margin: auto; 
+    display: flex;
 }
