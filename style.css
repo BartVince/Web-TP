@@ -175,14 +175,36 @@ input {
     width: 100%;
 }
 
-#pickaxeImg {
+@keyframes pickaxeAnim {
+    0% {transform: rotate(30deg); transform: translate(24vw, 15vw)};
+    50% {transform: rotate(70deg)};
+    100% {transform: rotate(0deg);};
+}
+
+.pickaxeImg {
+    position: absolute;
     height: 13.5vw;
     width: 18vw;
+    transform: translate(14vw, 15vw) rotate(-50deg);
+}
+
+.animated {
+    animation: pickaxeAnim 0.1s ease-in;
+    animation-fill-mode: forwards;
 }
 
 #depositImg {
     height: 20vw;
     width: 20vw;
+    cursor: pointer;
+    transform: translate(33vw, -24vw);
+}
+
+#depositImg:hover {
+    filter: drop-shadow(2px 2px 0 cyan)
+            drop-shadow(-2px 2px 0 cyan)
+            drop-shadow(2px -2px 0 cyan)
+            drop-shadow(-2px -2px 0 cyan);
 }
 
 #clickerButton {

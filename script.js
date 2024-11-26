@@ -277,10 +277,25 @@ async function BuyUpgrade(cost, upgradeType, index) {
 }
 
 
+async function wait(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms))
+}
 
 async function mineClicked() {
     let username = getLoginCookie("login")
     let userCurrency = document.getElementById("userCurrency")
+    let pickaxe = document.getElementsByClassName("pickaxeImg")
+
+    for (let i = 0; i < pickaxe.length; i++) {
+        pickaxe[i].classList.remove("animated")
+    }
+
+    setTimeout(() => { 
+        for (let i = 0; i < pickaxe.length; i++) {
+            pickaxe[i].classList.add("animated")  
+        } 
+    }, 30)
+
     let acc = await getAccount(username)
     clicker_MoneyGained += (clicker_extra * clicker_multiplier)
     userCurrency.textContent = "$" + String(acc.currency + clicker_MoneyGained)
@@ -291,12 +306,6 @@ async function saveMoney() {
     let acc = await getAccount(username)
     let updatedMoney = acc.currency + clicker_MoneyGained
     updateData(acc.username, acc.password, updatedMoney, acc.oneTimeUpgrades, acc.normalUpgrades)
-}
-
-
-
-async function wait(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms))
 }
 
 async function showCurrency(user) {
@@ -346,16 +355,54 @@ async function updateClickerValues() {
         if (acc.oneTimeUpgrades[1] == true) {   // Iron Deposit
             clicker_multiplier += 3             // ( x4 - 1 )
         }
-        if (acc.oneTimeUpgrades[1] == true) {   // Diamond Deposit
+        if (acc.oneTimeUpgrades[2] == true) {   // Diamond Deposit
             clicker_multiplier += 7             // ( x8 - 1 )
         }
         
-        clicker_extra += acc.normalUpgrades[0] * 40 // Extra Mineshaft
-        clicker_extra += acc.normalUpgrades[1] * 1 // Extra Strength
-        clicker_extra += acc.normalUpgrades[2] * 15 // Extra Helping Hand
+        clicker_extra += acc.normalUpgrades[0] * 40 // Extra Mineshaft ( + $40 )
+        clicker_extra += acc.normalUpgrades[1] * 1 // Extra Strength ( + $1 )
+        clicker_extra += acc.normalUpgrades[2] * 15 // Extra Helping Hand ( + $15 )
 
     } catch (error) {
         updateClickerValues()
+    }
+}
+
+async function loadGameVisuals() {
+    try {
+        await wait(20)
+
+        let username = getLoginCookie("login")
+        let deposit = document.getElementById("depositImg")
+        let gameDiv = document.getElementById("gameDiv")
+        let acc = await getAccount(username)
+        
+        if (acc.oneTimeUpgrades[0] == true) {
+            deposit.src = "https://static.vecteezy.com/system/resources/previews/026/547/540/non_2x/an-8-bit-retro-styled-pixel-art-illustration-of-an-orange-chromium-rock-free-png.png"
+        }
+        if (acc.oneTimeUpgrades[1] == true) {
+            deposit.src = "https://static.vecteezy.com/system/resources/previews/019/527/056/non_2x/an-8-bit-retro-styled-pixel-art-illustration-of-a-stone-rock-free-png.png"
+        }
+        if (acc.oneTimeUpgrades[2] == true) {   
+            deposit.src = "https://static.vecteezy.com/system/resources/thumbnails/025/212/523/small_2x/an-8-bit-retro-styled-pixel-art-illustration-of-an-aqua-crystal-free-png.png"
+        }
+        
+        if (acc.normalUpgrades[2] >= 1) {
+            gameDiv.children[2].style.display = "flex"
+        }
+        if (acc.normalUpgrades[2] >= 2) {
+            gameDiv.children[3].style.display = "flex"
+        }
+        if (acc.normalUpgrades[2] >= 3) {
+            gameDiv.children[4].style.display = "flex"
+        }
+        if (acc.normalUpgrades[2] >= 4) {
+            gameDiv.children[5].style.display = "flex"
+        }
+        console.log(gameDiv.children)
+
+    } catch (error) {
+        loadGameVisuals()
     }
 }
 
@@ -389,6 +436,9 @@ window.onload = function() { // WHEN PAGE LOADS
     }
 
     if (pageName == "game") {
+
+        loadGameVisuals()
+
         window.addEventListener('beforeunload', function() {  
             saveMoney()    
         })
