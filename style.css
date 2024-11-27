@@ -94,6 +94,20 @@ input {
     justify-content: space-between;
 }
 
+#sortDiv {
+    position: absolute;
+    transform: translate(3vw, -3vw);
+    font-size: 1vw;
+}
+
+#sortSelect {
+    height: 25px;
+    width: 7vw;
+    font-size: 1vw;
+    background-color: #1f1f2a;
+    color: white;
+}
+
 .article {
     background-color: #4b4b4b;
     height: 24vw;

@@ -12,9 +12,13 @@ request.onupgradeneeded = function(event) {
     objectStore.createIndex("currency", "currency", { unique: false })
 }
 
+
+
 request.onsuccess = function(event) {
     db = event.target.result
 }
+
+
 
 function addData(Account) {
     transaction = db.transaction(["MainObjectStore"], "readwrite")
@@ -28,6 +32,8 @@ function addData(Account) {
         normalUpgrades: Account.normalUpgrades
     })
 }
+
+
 
 function getData(username) {
     return new Promise((resolve) => {
@@ -44,6 +50,8 @@ function getData(username) {
     })
 }
 
+
+
 function updateData(_username, _password, _currency, _oneTimeUpgrades, _normalUpgrades) { // new data must be in this form: {username: "keer", password: "aaa", currency: 1000}
     newData = { username: _username, password: _password, currency: _currency, oneTimeUpgrades: _oneTimeUpgrades, normalUpgrades: _normalUpgrades }
     transaction = db.transaction(["MainObjectStore"], "readwrite")
@@ -53,31 +61,13 @@ function updateData(_username, _password, _currency, _oneTimeUpgrades, _normalUp
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 function logData(username) { // To be called in the console
     getData(username).then(data => {
         console.log(data)
     })
 }
 
-function logKeys() { // To be called in the console
-    transaction = db.transaction(["MainObjectStore"], "readwrite")
-    objectStore = transaction.objectStore("MainObjectStore")
-    console.log(objectStore.getAllKeys())
 
-}
 
 function resetData() { // To be called in the console
     transaction = db.transaction(["MainObjectStore"], "readwrite")
@@ -87,6 +77,8 @@ function resetData() { // To be called in the console
         console.log("All data deleted successfully")
     }
 }
+
+
 
 class Account {
     constructor(username, password, currency, oneTimeUpgrades, normalUpgrades) {
@@ -98,27 +90,14 @@ class Account {
     }
 }
 
-class OneTimeUpgrade {
-    constructor(upgradeName, value) {
-        this.name = upgradeName
-        this.value = value
-    }
-}
-
-
-
-
-
-
-
-
-
 function setLoginCookie(cookieName, username, exdays) {
     const d = new Date()
     d.setTime(d.getTime() + (exdays*24*60*60*1000))
     let expires = "expires="+ d.toUTCString()
     document.cookie = cookieName + "=" + username + ";" + expires + ";path=/"
 }
+
+
 
 function getLoginCookie(cookieName) {
     let name = cookieName + "="
@@ -136,17 +115,6 @@ function getLoginCookie(cookieName) {
     return ""
 }
 
-function clearAllCookies() { // To be called in the console
-    let cookies = document.cookie.split(";")
-    for (let i = 0; i < cookies.length; i++) {
-        let cookie = cookies[i]
-        let eqPos = cookie.indexOf("=")
-        let name = eqPos > -1 ? cookie.substring(0, eqPos) : cookie
-        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
-    }
-}
-
-
 
 
 function checkUsernameTaken() {
@@ -162,6 +130,8 @@ function checkUsernameTaken() {
     
     })
 }
+
+
 
 function createAccount() {
     if (document.getElementById("usernameError").style.display == "flex") {
@@ -181,6 +151,8 @@ function createAccount() {
     document.getElementById("CreatedAccountPrompt").style.display = "grid"
 }
 
+
+
 async function logInAccount() {
     
     let usernameElement = document.getElementById("username").value
@@ -189,7 +161,6 @@ async function logInAccount() {
     let acc = await getAccount(usernameElement)
 
     if (passwordElement == acc.password) {
-        console.log(usernameElement) // LOGIN HERE
         setLoginCookie("login", usernameElement, 1)
         window.location.href='index.html'
     } else {
@@ -199,12 +170,16 @@ async function logInAccount() {
     
 }
 
+
+
 function logOutAccount() {
     if (confirm("Do you want to log out of " + getLoginCookie("login") + "?")) {
         setLoginCookie("login", "", 0)
         location.reload()
     }
 }
+
+
 
 async function getAccount(username) {
     
@@ -221,20 +196,7 @@ async function getAccount(username) {
     return obj[0]
 }
 
-async function test(user) {
-    let acc = await getAccount(user)
-    console.log(acc.username)
-    console.log(acc.password)
-    
-    for (let i = 0; i < acc.oneTimeUpgrades.length; i++) {
-        console.log(acc.oneTimeUpgrades[i])
-    }
 
-    for (let i = 0; i < acc.normalUpgrades.length; i++) {
-        console.log(acc.normalUpgrades[i])
-    }
-
-}
 
 async function BuyUpgrade(cost, upgradeType, index) {
     let username = getLoginCookie("login")
@@ -277,9 +239,12 @@ async function BuyUpgrade(cost, upgradeType, index) {
 }
 
 
+
 async function wait(ms) {
     return new Promise(resolve => setTimeout(resolve, ms))
 }
+
+
 
 async function mineClicked() {
     let username = getLoginCookie("login")
@@ -301,12 +266,16 @@ async function mineClicked() {
     userCurrency.textContent = "$" + String(acc.currency + clicker_MoneyGained)
 }
 
+
+
 async function saveMoney() {
     let username = getLoginCookie("login")
     let acc = await getAccount(username)
     let updatedMoney = acc.currency + clicker_MoneyGained
     updateData(acc.username, acc.password, updatedMoney, acc.oneTimeUpgrades, acc.normalUpgrades)
 }
+
+
 
 async function showCurrency(user) {
     try {
@@ -320,6 +289,8 @@ async function showCurrency(user) {
         showCurrency(user)
     }
 }
+
+
 
 async function showUpgrades(user) {
     try {
@@ -341,6 +312,8 @@ async function showUpgrades(user) {
         showUpgrades(user)
     }
 }
+
+
 
 async function updateClickerValues() {
     try {
@@ -367,6 +340,8 @@ async function updateClickerValues() {
         updateClickerValues()
     }
 }
+
+
 
 async function loadGameVisuals() {
     try {
@@ -399,12 +374,54 @@ async function loadGameVisuals() {
         if (acc.normalUpgrades[2] >= 4) {
             gameDiv.children[5].style.display = "flex"
         }
-        console.log(gameDiv.children)
 
     } catch (error) {
         loadGameVisuals()
     }
 }
+
+
+
+function sortArticles(sortValue) {
+    let storeDiv = document.getElementById("storeDiv")
+
+    switch (sortValue) {
+        case "None":
+
+            for (let i = 1; i < storeDiv.children.length; i++) {
+                storeDiv.children[i].style.display = "grid"
+            }
+            break;
+
+        case "Deposits":
+            
+            for (let i = 1; i < storeDiv.children.length; i++) {
+                if (storeDiv.children[i].className == "article deposit") {
+                    storeDiv.children[i].style.display = "grid"
+                } else {
+                    storeDiv.children[i].style.display = "none"
+                }
+            }
+            break;
+
+        case "Extras":
+
+        for (let i = 1; i < storeDiv.children.length; i++) {
+            if (storeDiv.children[i].className == "article extra") {
+                storeDiv.children[i].style.display = "grid"
+            } else {
+                storeDiv.children[i].style.display = "none"
+            }
+        }
+            break;
+
+        default:
+            console.error("UNIDENTIFIED sortValue WAS SELECTED, ERROR COMING FROM sortArticles()")
+            break;
+    }
+}
+
+
 
 window.onload = function() { // WHEN PAGE LOADS
     let pageName = document.getElementById("pageName").textContent
@@ -433,6 +450,12 @@ window.onload = function() { // WHEN PAGE LOADS
 
     if (pageName == "home") {
         showUpgrades(username)
+
+        let selectElement = document.getElementById("sortSelect")
+        selectElement.addEventListener("change", function() {
+            sortArticles(selectElement.value)
+        })
+
     }
 
     if (pageName == "game") {
